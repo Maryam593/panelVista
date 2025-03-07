@@ -1,6 +1,8 @@
+import 'dotenv/config'
 import mongoose from "mongoose";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
+const key = process.env.SECRET_KEY
 
 const userSchema = new mongoose.Schema({
     FullName: {
@@ -12,7 +14,7 @@ const userSchema = new mongoose.Schema({
 })
 
 userSchema.methods.generateJWT = function() {
-    const token = jwt.sign({id:this._id},process.env.SECRET_KEY, {expiresIn:"24h"})
+    const token = jwt.sign({id:this._id},key, {expiresIn:"24h"})
     return token
 }
 userSchema.methods.comparePassword = async function(password){
@@ -20,7 +22,7 @@ userSchema.methods.comparePassword = async function(password){
     return comparePassword
 }
 userSchema.statics.hashpassword = async function (password){
-    const hashPass = await bcrypt.hash(password,this.password)
+    const hashPass = await bcrypt.hash(password,10)
     return hashPass
 }
 
