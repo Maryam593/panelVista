@@ -25,29 +25,7 @@ const userController = {
             res.status(500).json({ Error: "Internal server error" });
         }
     },
-
-    registerUser: async (req, res) => {
-        try {
-            const { FullName: { firstName, lastName }, email, password } = req.body;
-
-            if (!firstName || !email || !password) {
-                return res.status(403).json({ Warning: "Fill out the requirements first" });
-            }
-
-            const userProfile = new UserAuthModel({
-                FullName: { firstName, lastName },
-                email,
-                password
-            });
-
-            await userProfile.save();
-
-            res.status(201).json({ Success: "User Profile created successfully", data: userProfile });
-        } catch (error) {
-            res.status(500).json({ Error: "Internal server error" });
-        }
-    },
-
+   
     deleteProfile: async (req, res) => {
         try {
             const { id } = req.params;

@@ -1,7 +1,9 @@
-import Router from "express"
-import userProfileController from "../Controller/userProfile.js"
-const profileRouter = Router()
+import express from "express";
+import { upload } from "../middleware/uploadMiddleware.js";
+import userProfileController from "../Controller/userProfile.js";
 
-profileRouter.post("/user/profile", userProfileController.createProfile)
+const router = express.Router();
 
-export default profileRouter
+router.post("/createProfile", upload.single("profileImage"), userProfileController.createProfile);
+
+export default router;
