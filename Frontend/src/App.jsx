@@ -1,24 +1,22 @@
-import React from 'react'
-import './App.css'
-import { Routes,Route } from 'react-router-dom'
-import Home from './Pages/Home'
-import Login from './Pages/Authentication/Login'
-import SignUp from './Pages/Authentication/SignUp'
-import DashBoard from './Components/DashBoard/DashBoard'
-import Layout from './Layout/Layout'
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import { useRoutes } from "./Routes/Index";
+import Layout from "./Layout/Layout";
+import "./App.css";
 
 function App() {
-
+  const routes = useRoutes()
   return (
-    <>
-      <Routes>
-        <Route path='/' element= {<Home/>}/>
-        <Route path='/o/Auth/user/login' element = {<Login/>}/>
-        <Route path='/o/auth/user/sign-up' element = {<SignUp/>}/>
-        <Route path='/user/dashboard' element = {<Layout><DashBoard/></Layout>}/>
-      </Routes>
-    </>
-  )
+    <Routes>
+      {routes.map(({ path, element: Element, isLayout }) => (
+        <Route
+          key={path}
+          path={path}
+          element={isLayout ? <Layout><Element /></Layout> : <Element />}
+        />
+      ))}
+    </Routes>
+  );
 }
 
-export default App
+export default App;
