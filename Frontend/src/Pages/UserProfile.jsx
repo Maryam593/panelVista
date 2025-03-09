@@ -86,7 +86,7 @@ const CreateProfile = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
+    <div className="max-w-lg p-6">
       <h2 className="text-2xl font-bold mb-4">Create Profile</h2>
 
       {message && <p className="mb-4 text-center text-red-600">{message}</p>}
@@ -157,7 +157,7 @@ const CreateProfile = () => {
 
         <button
           type="submit"
-          className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className=" p-2 bg-gray-900 text-white rounded hover:bg-blue-600"
           disabled={loading}
         >
           {loading ? "Creating Profile..." : "Submit"}
