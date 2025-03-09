@@ -1,5 +1,6 @@
  import BlackListTokenModel from "../Model/BlackListToken.js";
 import UserAuthModel from "../Model/userModel.js";
+import bcrypt from "bcrypt"
  const userAuthController = {
     registerUser: async (req, res) => {
         try {
@@ -43,6 +44,36 @@ import UserAuthModel from "../Model/userModel.js";
         }
           
     },
+    ChangePassword : async (req, res) => {
+        try {
+          const { password } = req.body;
+          const userId = req.user.id; // Assuming authentication middleware
+      
+          if (!password) {
+            return res.status(400).json({ error: "Password is required" });
+          }
+      
+          // Hash the new password
+          const salt = await bcrypt.genSalt(10);
+          const hashedPassword = await bcrypt.hash(password, salt);
+      
+          // Update user password in DB
+          const updatedUser = await UserAuthModel.findByIdAndUpdate(
+            userId,
+            { password: hashedPassword },
+            { new: true }
+          );
+      
+          if (!updatedUser) {
+            return res.status(404).json({ error: "User not found" });
+          }
+      
+          res.json({ success: "Password updated successfully" });
+        } catch (error) {
+          console.error("Change password error:", error);
+          res.status(500).json({ error: "Internal server error" });
+        }
+      },
     Logout: async (req, res, next) => {
         try {
           res.clearCookie('token'); 

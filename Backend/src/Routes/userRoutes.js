@@ -7,7 +7,7 @@ const userRouter = Router()
 userRouter.get("/AllUsers", userController.getAll)
 userRouter.get("/userProfile/:id", userController.getUserProfile)
 userRouter.delete("/user/deactivate/account/:id", userController.deleteProfile)
-
+userRouter.put("/user/change-password", userAuthMiddleware, userAuthController.ChangePassword)
 //user Authorization and Authentication
 userRouter.post("/user/sign-up", userAuthController.registerUser)
 userRouter.post("/user/login", userAuthController.Login)

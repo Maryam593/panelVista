@@ -1,4 +1,5 @@
 import UserAuthModel from "../Model/userModel.js";
+import userProfileModel from "../Model/UserProfileModel.js";
 
 const userController = {
     getAll: async (req, res) => {
@@ -16,12 +17,13 @@ const userController = {
     getUserProfile: async (req, res) => {
         try {
             const { id } = req.params;
-            const userProfile = await UserAuthModel.findById(id);
+            const userProfile = await userProfileModel.findById(id);
             if (!userProfile) {
                 return res.status(404).json({ Warning: `Data for ID ${id} not found` });
             }
             res.status(200).json({ Success: "User Profile found!", data: userProfile });
         } catch (error) {
+            console.error(error)
             res.status(500).json({ Error: "Internal server error" });
         }
     },

@@ -4,6 +4,6 @@ import userProfileController from "../Controller/userProfile.js";
 
 const router = express.Router();
 
-router.post("/createProfile", upload.single("profileImage"), userProfileController.createProfile);
+router.post("/createProfile", upload.single("profileImage"), userProfileController.createOrUpdateProfile);
 
 export default router;
