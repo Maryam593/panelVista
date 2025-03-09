@@ -59,7 +59,7 @@ const ChangePassword = () => {
   };
 
   return (
-    <div className="p-6 max-w-md mx-auto">
+    <div className="p-6 max-w-md">
       <h2 className="text-2xl font-semibold mb-4">Change Password</h2>
 
       {error && <p className="text-red-500 mb-2">{error}</p>}
