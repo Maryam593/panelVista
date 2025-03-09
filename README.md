@@ -1,8 +1,7 @@
 ﻿# panelVista
-# PanelVista - Project Documentation
 
 ## Overview
-PanelVista is a web application designed for managing user profiles, tracking activity, and displaying key insights on a dashboard. The application is built using **React (Frontend)**, **Redux (State Management)**, and **Node.js/Express with MongoDB (Backend)**.
+PanelVista is a web application designed to manage user profiles, track activity, and display key insights on a dashboard. The application is built using **React (Frontend)**, **Redux (State Management)**, and **Node.js/Express with MongoDB (Backend)**.
 
 ## Features
 ### 1️⃣ User Profile Management
@@ -26,7 +25,7 @@ PanelVista is a web application designed for managing user profiles, tracking ac
 ## Tech Stack
 ### 🏗 **Frontend**
 - React.js (UI framework)
-- Redux (State Management)
+- Redux(RTK) (State Management)
 - React Router (Navigation)
 - Axios (API Calls)
 - Tailwind CSS (Styling)
@@ -92,7 +91,7 @@ If you want to contribute:
 
 ---
 ## Contact
-For any queries, reach out at [maryams91101@gmail.com].
+For any queries, reach out at [https://github.com/Maryam593 ].
 
 ---
 🚀 **Happy Coding!**
