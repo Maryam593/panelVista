@@ -1,8 +1,8 @@
 
 export const URLS = {
     AUTH :  {
-        LOGIN : "o/auth/user/login",
-        SIGNUP : "o/auth/user/sign-up"
+        LOGIN : "/o/auth/user/login",
+        SIGNUP : "/o/auth/user/sign-up"
     },
     HOME : "/",
     DASHBOARD : "/user/dashboard",
