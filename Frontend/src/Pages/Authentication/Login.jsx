@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react"; // ✅ useState import karein
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "./LoginSchema";
@@ -10,9 +10,15 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../store/slice/auth.slice";
 import { Link } from "react-router-dom";
+
 const Login = () => {
   const formRef = useRef(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
+  // ✅ State to store error message
+  const [errorMessage, setErrorMessage] = useState("");
+
   useEffect(() => {
     gsap.fromTo(
       formRef.current,
@@ -30,30 +36,35 @@ const Login = () => {
     { label: "Email", name: "email", type: "email", placeholder: "abc@gmail.com" },
     { label: "Secret Key", name: "password", type: "password", placeholder: "secretKey" },
   ];
-  
-  const dispatch = useDispatch();
 
-const onSubmit = async (data) => {
-  try {
-    const response = await axios.post("http://localhost:3000/user/login", data);
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post("http://localhost:3000/user/login", data);
 
-    if (response.status === 200) {
-      dispatch(login(response.data));  
-      navigate("/user/dashboard");
+      if (response.status === 200) {
+        dispatch(login(response.data));
+        navigate("/user/dashboard");
+      }
+    } catch (error) {
+      console.error("Login Error:", error.response?.data || error.message);
+
+      // ✅ Error message set karein UI ke liye
+      setErrorMessage(error.response?.data?.Warning || "Invalid credentials");
     }
-  } catch (error) {
-    console.error("Login Error:", error.response?.data || error.message);
-  }
-};
-
-  
+  };
 
   return (
     <div className="bg-[#DBDBE4] h-screen flex justify-center items-center">
       <div ref={formRef} className="bg-white p-6 rounded-lg shadow-md w-96">
         <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
+
+        {/* ✅ Error message UI pe show karein */}
+        {errorMessage && (
+          <p className="text-red-600 text-center mb-2">{errorMessage}</p>
+        )}
+
         <form onSubmit={handleSubmit(onSubmit)}>
-        {fields.map(({ label, name, type, placeholder }) => {
+          {fields.map(({ label, name, type, placeholder }) => {
             const nameParts = name.split(".");
             const errorPath = nameParts.reduce(
               (acc, key) => acc?.[key],
@@ -72,7 +83,14 @@ const onSubmit = async (data) => {
               />
             );
           })}
-           <p className="text-center mb-2 mt-2 text-gray-500 text-sm">Want to create an Account? <Link to="/o/auth/user/sign-up" className="text-blue-800">Click here</Link></p>
+
+          <p className="text-center mb-2 mt-2 text-gray-500 text-sm">
+            Want to create an Account?{" "}
+            <Link to="/o/auth/user/sign-up" className="text-blue-800">
+              Click here
+            </Link>
+          </p>
+          
           <ButtonHandle type="submit" text="Login" />
         </form>
       </div>
